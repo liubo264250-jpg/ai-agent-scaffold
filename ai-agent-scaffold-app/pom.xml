@@ -88,6 +88,14 @@
             <groupId>com.liubo</groupId>
             <artifactId>ai-agent-scaffold-infrastructure</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.springframework.ai</groupId>
+            <artifactId>spring-ai-openai</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>dev.langchain4j</groupId>
+            <artifactId>langchain4j-open-ai</artifactId>
+        </dependency>
     </dependencies>
 
     <build>
