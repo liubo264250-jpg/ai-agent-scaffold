@@ -43,6 +43,11 @@
             <groupId>com.liubo</groupId>
             <artifactId>ai-agent-scaffold-types</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>cn.bugstack.wrench</groupId>
+            <artifactId>xfg-wrench-starter-design-framework</artifactId>
+        </dependency>
     </dependencies>
 
     <build>
