@@ -1,4 +1,4 @@
-package com.liubo.test.agent;
+package com.liubo.test.app;
 
 import com.alibaba.fastjson.JSON;
 import com.google.adk.events.Event;
@@ -8,7 +8,6 @@ import com.google.genai.types.Content;
 import com.google.genai.types.Part;
 import com.liubo.domain.agent.model.valobj.AiAgentRegisterVO;
 import io.reactivex.rxjava3.core.Flowable;
-import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -16,20 +15,21 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.ApplicationContext;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CountDownLatch;
 
 /**
  * @author 68
- * 2026/5/10 16:58
+ * 2026/5/10 21:08
  */
 @Slf4j
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class AiAgentAutoConfigTest {
     @Resource
-    protected ApplicationContext applicationContext;
+    private ApplicationContext applicationContext;
 
     @Test
     public void test_agent() throws InterruptedException {
@@ -42,7 +42,7 @@ public class AiAgentAutoConfigTest {
                 .createSession(appName, "68")
                 .blockingGet();
 
-        Content userMsg = Content.fromParts(Part.fromText("编写冒泡排序代码"));
+        Content userMsg = Content.fromParts(Part.fromText("编写冒泡排序"));
         Flowable<Event> events = runner.runAsync("68", session.id(), userMsg);
 
         List<String> outputs = new ArrayList<>();
@@ -51,5 +51,6 @@ public class AiAgentAutoConfigTest {
         log.info("测试结果:{}", JSON.toJSONString(outputs));
 
         new CountDownLatch(1).await();
+
     }
 }

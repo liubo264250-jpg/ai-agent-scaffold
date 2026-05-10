@@ -16,7 +16,8 @@ thread:
 spring:
   config:
     import:
-      - classpath:agent/test_agent.yml
+      #      - classpath:agent/test-agent-02.yml
+      - classpath:agent/test-agent.yml
   datasource:
     username: root
     password: 123456

@@ -19,13 +19,13 @@ ai:
               tool-mcp-list:
                 - sse:
                     name: baidu-search
-                    base-uri: https://appbuilder.baidu.com/v2/ai_search/mcp/
-                    sse-endpoint: sse?api_key=bce-v3/ALTAK-3zODLb9qHozIftQlGwez5/2696e92781f5bf1ba1870e2958f239fd6dc822a4
+                    base-uri: http://appbuilder.baidu.com/v2/ai_search/mcp/
+                    sse-endpoint: sse?api_key=bce-v3/ALTAK-vZgzN3yLnaMTj3pkNFAqC/47e459166b0415b7055e975a6652b718d5dc0d9f
                     request-timeout: 5000
                 - sse:
                     name: baidu-map
                     base-uri: https://mcp.map.baidu.com/
-                    sse-endpoint: sse?ak=tV0NsP4Gmj8IL7mhvyjVZ7c6
+                    sse-endpoint: sse?ak=d8DD57bzeMp45dYiI2GKVfWLcyPqs2Ak
                     request-timeout: 5000
             agents:
               - name: CodeWriterAgent

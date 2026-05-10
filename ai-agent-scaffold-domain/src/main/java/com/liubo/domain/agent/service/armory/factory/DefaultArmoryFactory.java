@@ -46,7 +46,7 @@ public class DefaultArmoryFactory {
 
         private List<AiAgentConfigTableVO.Module.AgentWorkflow> agentWorkflows;
 
-        private Map<String, BaseAgent> agentGroup;
+        private Map<String, BaseAgent> agentGroup = new HashMap<>();
 
         private Map<String, Object> dataObjects = new HashMap<>();
 
