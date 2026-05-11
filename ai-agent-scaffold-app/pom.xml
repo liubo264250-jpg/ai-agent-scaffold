@@ -92,11 +92,6 @@
         </dependency>
 
         <dependency>
-            <groupId>com.google.adk.samples</groupId>
-            <artifactId>google-adk-sample-helloworld</artifactId>
-        </dependency>
-
-        <dependency>
             <groupId>com.google.adk</groupId>
             <artifactId>google-adk-contrib-langchain4j</artifactId>
         </dependency>

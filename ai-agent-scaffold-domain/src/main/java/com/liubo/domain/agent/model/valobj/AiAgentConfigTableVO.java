@@ -1,5 +1,6 @@
 package com.liubo.domain.agent.model.valobj;
 
+import com.google.adk.runner.Runner;
 import lombok.Data;
 
 import java.util.List;
@@ -55,6 +56,8 @@ public class AiAgentConfigTableVO {
         private List<Agent> agents;
 
         private List<AgentWorkflow> agentWorkflows;
+
+        private Runner runner;
 
         @Data
         public static class AiApi {
@@ -124,6 +127,11 @@ public class AiAgentConfigTableVO {
             private List<String> subAgents;
             private String description;
             private Integer maxIterations = 3;
+        }
+
+        @Data
+        public static class Runner {
+            private String agentName;
         }
     }
 }

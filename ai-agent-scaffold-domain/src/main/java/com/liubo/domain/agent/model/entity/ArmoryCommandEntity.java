@@ -38,4 +38,11 @@ public class ArmoryCommandEntity {
                 .map(AiAgentConfigTableVO.Module::getAgents)
                 .orElse(Collections.emptyList());
     }
+
+    public AiAgentConfigTableVO.Module.Runner getRunnerConfig(){
+        return Optional.ofNullable(aiAgentConfigTableVO)
+                .map(AiAgentConfigTableVO::getModule)
+                .map(AiAgentConfigTableVO.Module::getRunner)
+                .orElse(new AiAgentConfigTableVO.Module.Runner());
+    }
 }
