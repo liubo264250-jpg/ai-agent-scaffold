@@ -24,8 +24,7 @@ public class LoopAgentNode extends AbstractArmorySupport {
     @Override
     protected AiAgentRegisterVO doApply(ArmoryCommandEntity requestParameter, DefaultArmoryFactory.DynamicContext dynamicContext) throws Exception {
         log.info("execute LoopAgentNode");
-        List<AiAgentConfigTableVO.Module.AgentWorkflow> agentWorkflows = dynamicContext.getAgentWorkflows();
-        AiAgentConfigTableVO.Module.AgentWorkflow agentWorkflow = agentWorkflows.remove(0);
+        AiAgentConfigTableVO.Module.AgentWorkflow agentWorkflow = dynamicContext.getCurrentAgentWorkflow();
         List<BaseAgent> subAgents = dynamicContext.queryAgentList(agentWorkflow.getSubAgents());
         LoopAgent loopAgent = LoopAgent.builder()
                 .name(agentWorkflow.getName())
@@ -39,26 +38,6 @@ public class LoopAgentNode extends AbstractArmorySupport {
 
     @Override
     public StrategyHandler<ArmoryCommandEntity, DefaultArmoryFactory.DynamicContext, AiAgentRegisterVO> get(ArmoryCommandEntity requestParameter, DefaultArmoryFactory.DynamicContext dynamicContext) throws Exception {
-        List<AiAgentConfigTableVO.Module.AgentWorkflow> agentWorkflows = dynamicContext.getAgentWorkflows();
-        if (null == agentWorkflows || agentWorkflows.isEmpty()) {
-            return defaultStrategyHandler;
-        }
-
-        AiAgentConfigTableVO.Module.AgentWorkflow agentWorkflow = agentWorkflows.get(0);
-
-        String type = agentWorkflow.getType();
-        AgentTypeEnum agentTypeEnum = AgentTypeEnum.fromType(type);
-
-        if (null == agentTypeEnum) {
-            throw new RuntimeException("agentWorkflow type is error!");
-        }
-
-        String node = agentTypeEnum.getNode();
-
-        return switch (node) {
-            case "parallelAgentNode" -> getBean("parallelAgentNode");
-            case "sequentialAgentNode" -> getBean("sequentialAgentNode");
-            default -> defaultStrategyHandler;
-        };
+        return getBean("agentWorkflowNode");
     }
 }

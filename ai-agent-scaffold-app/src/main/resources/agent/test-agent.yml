@@ -11,7 +11,7 @@ ai:
           module:
             ai-api:
               base-url: https://apis.itedus.cn
-              api-key: sk-6VyPv3pudwneXs86B8F4591aF4E94d48B1E1C25f79222678
+              api-key:
               completions-path: v1/chat/completions
               embeddings-path: v1/embeddings
             chat-model:
@@ -20,12 +20,12 @@ ai:
                 - sse:
                     name: baidu-search
                     base-uri: http://appbuilder.baidu.com/v2/ai_search/mcp/
-                    sse-endpoint: sse?api_key=bce-v3/ALTAK-vZgzN3yLnaMTj3pkNFAqC/47e459166b0415b7055e975a6652b718d5dc0d9f
+                    sse-endpoint:
                     request-timeout: 5000
                 - sse:
                     name: baidu-map
                     base-uri: https://mcp.map.baidu.com/
-                    sse-endpoint: sse?ak=d8DD57bzeMp45dYiI2GKVfWLcyPqs2Ak
+                    sse-endpoint:
                     request-timeout: 5000
             agents:
               - name: CodeWriterAgent

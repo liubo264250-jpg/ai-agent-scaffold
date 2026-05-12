@@ -17,6 +17,7 @@ import org.springframework.ai.openai.api.OpenAiApi;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
 /**
@@ -39,13 +40,25 @@ public class DefaultArmoryFactory {
     @AllArgsConstructor
     @NoArgsConstructor
     public static class DynamicContext {
-
+        /**
+         * LLM API
+         */
         private OpenAiApi openAiApi;
-
+        /**
+         * 对话模型
+         */
         private ChatModel chatModel;
-
-        private List<AiAgentConfigTableVO.Module.AgentWorkflow> agentWorkflows;
-
+        /**
+         * 原子安全的递进步骤
+         */
+        private AiAgentConfigTableVO.Module.AgentWorkflow currentAgentWorkflow;
+        /**
+         * 原子安全的递进步骤
+         */
+        private AtomicInteger currentStepIndex = new AtomicInteger(0);
+        /**
+         * 智能体组
+         */
         private Map<String, BaseAgent> agentGroup = new HashMap<>();
 
         private Map<String, Object> dataObjects = new HashMap<>();
@@ -67,6 +80,14 @@ public class DefaultArmoryFactory {
                     .map(name -> this.agentGroup.get(name))
                     .filter(Objects::nonNull)
                     .collect(Collectors.toList());
+        }
+
+        public int getCurrentStepIndex() {
+            return currentStepIndex.get();
+        }
+
+        public void addCurrentStepIndex() {
+            currentStepIndex.incrementAndGet();
         }
     }
 }
