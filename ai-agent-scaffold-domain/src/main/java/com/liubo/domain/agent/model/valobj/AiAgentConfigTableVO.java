@@ -77,9 +77,13 @@ public class AiAgentConfigTableVO {
             @Data
             public static class ToolMcp {
 
+                private String toolType;
+
                 private SSEServerParameters sse;
 
                 private StdioServerParameters stdio;
+
+                private LocalParameters local;
 
                 @Data
                 public static class SSEServerParameters {
@@ -105,6 +109,10 @@ public class AiAgentConfigTableVO {
                     }
                 }
 
+                @Data
+                public static class LocalParameters {
+                    private String name;
+                }
             }
         }
 
