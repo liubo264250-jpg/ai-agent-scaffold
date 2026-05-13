@@ -1,4 +1,4 @@
-package com.liubo.domain.agent.service.armory.mcp.client;
+package com.liubo.domain.agent.service.armory.matter.mcp.client;
 
 import com.liubo.domain.agent.model.valobj.AiAgentConfigTableVO;
 import org.springframework.ai.tool.ToolCallback;

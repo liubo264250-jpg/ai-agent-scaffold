@@ -3,6 +3,7 @@ package com.liubo.domain.agent.service.armory.node;
 import cn.bugstack.wrench.design.framework.tree.StrategyHandler;
 import com.google.adk.agents.BaseAgent;
 import com.google.adk.agents.SequentialAgent;
+import com.google.adk.plugins.BasePlugin;
 import com.google.adk.runner.InMemoryRunner;
 import com.liubo.domain.agent.model.entity.ArmoryCommandEntity;
 import com.liubo.domain.agent.model.valobj.AiAgentConfigTableVO;
@@ -14,6 +15,11 @@ import com.liubo.types.exception.AppException;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * @author 68
@@ -52,9 +58,12 @@ public class RunnerNode extends AbstractArmorySupport {
         }
         // 获取智能体（用这个智能体装配 InMemoryRunner）
         BaseAgent baseAgent = dynamicContext.getAgentGroup().get(runnerConfig.getAgentName());
-
+        List<BasePlugin> basePluginList = Optional.ofNullable(runnerConfig.getPluginNameList())
+                .orElse(new ArrayList<>())
+                .stream()
+                .map(this::<BasePlugin>getBean).collect(Collectors.toList());
         // 会话运行节点
-        return new InMemoryRunner(baseAgent, appName);
+        return new InMemoryRunner(baseAgent, appName,basePluginList);
     }
 
     @Override

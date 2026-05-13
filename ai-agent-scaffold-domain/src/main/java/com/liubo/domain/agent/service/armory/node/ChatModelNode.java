@@ -1,32 +1,20 @@
 package com.liubo.domain.agent.service.armory.node;
 
 import cn.bugstack.wrench.design.framework.tree.StrategyHandler;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.liubo.domain.agent.model.entity.ArmoryCommandEntity;
 import com.liubo.domain.agent.model.valobj.AiAgentConfigTableVO;
 import com.liubo.domain.agent.model.valobj.AiAgentRegisterVO;
 import com.liubo.domain.agent.service.armory.AbstractArmorySupport;
 import com.liubo.domain.agent.service.armory.factory.DefaultArmoryFactory;
-import com.liubo.domain.agent.service.armory.mcp.client.ToolMcpCreateService;
-import com.liubo.domain.agent.service.armory.mcp.client.factory.DefaultMcpClientFactory;
-import io.modelcontextprotocol.client.McpClient;
-import io.modelcontextprotocol.client.McpSyncClient;
-import io.modelcontextprotocol.client.transport.HttpClientSseClientTransport;
-import io.modelcontextprotocol.client.transport.ServerParameters;
-import io.modelcontextprotocol.client.transport.StdioClientTransport;
-import io.modelcontextprotocol.json.jackson.JacksonMcpJsonMapper;
-import io.modelcontextprotocol.spec.McpClientTransport;
+import com.liubo.domain.agent.service.armory.matter.mcp.client.factory.DefaultMcpClientFactory;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.StringUtils;
-import org.springframework.ai.mcp.SyncMcpToolCallbackProvider;
 import org.springframework.ai.openai.OpenAiChatModel;
 import org.springframework.ai.openai.OpenAiChatOptions;
 import org.springframework.ai.openai.api.OpenAiApi;
 import org.springframework.ai.tool.ToolCallback;
 import org.springframework.stereotype.Service;
 
-import java.time.Duration;
 import java.util.*;
 import java.util.stream.Collectors;
 
