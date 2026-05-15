@@ -44,8 +44,8 @@ public class MyTestPlugin extends BasePlugin {
     }
 
     @Override
-    public Maybe<LlmResponse> beforeModelCallback(CallbackContext callbackContext, LlmRequest llmRequest) {
-        Optional<String> model = llmRequest.model();
+    public Maybe<LlmResponse> beforeModelCallback(CallbackContext callbackContext, LlmRequest.Builder llmRequest) {
+        Optional<String> model = llmRequest.build().model();
         log.info("ai 模型:{}", model.orElse(""));
 
         return super.beforeModelCallback(callbackContext, llmRequest);

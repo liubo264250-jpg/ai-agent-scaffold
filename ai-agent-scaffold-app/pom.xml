@@ -93,11 +93,6 @@
 
         <dependency>
             <groupId>com.google.adk</groupId>
-            <artifactId>google-adk-contrib-langchain4j</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>com.google.adk</groupId>
             <artifactId>google-adk-spring-ai</artifactId>
         </dependency>
 
