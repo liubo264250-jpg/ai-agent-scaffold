@@ -17,12 +17,14 @@ ai:
             chat-model:
               model: gpt-4.1
               tool-mcp-list:
-                - sse:
+                - tool-type: sse
+                  sse:
                     name: baidu-search
                     base-uri: http://appbuilder.baidu.com/v2/ai_search/mcp/
                     sse-endpoint:
                     request-timeout: 5000
-                - sse:
+                - tool-type: sse
+                  sse:
                     name: baidu-map
                     base-uri: https://mcp.map.baidu.com/
                     sse-endpoint:

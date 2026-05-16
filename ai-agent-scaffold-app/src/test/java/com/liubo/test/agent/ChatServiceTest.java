@@ -35,8 +35,10 @@ public class ChatServiceTest {
 
     @Test
     public void test_handleMessage_01() throws InterruptedException {
-        List<String> messages = chatService.handleMessage("100001", "xiaofuge", "你具备哪些能力");
-        log.info("测试结果:{}", JSON.toJSONString(messages));
+//        List<String> messages = chatService.handleMessage("100001", "xiaofuge", "你具备哪些能力");
+//        log.info("测试结果:{}", JSON.toJSONString(messages));
+        List<String> message = chatService.handleMessage("100003", "xiaofuge", "你具备哪些skill技能");
+        log.info("测试结果:{}", JSON.toJSONString(message));
     }
 
     @Test
@@ -87,4 +89,6 @@ public class ChatServiceTest {
         List<String> messages = chatService.handleMessage(chatCommandEntity);
         log.info("测试结果:{}", JSON.toJSONString(messages));
     }
+
+
 }

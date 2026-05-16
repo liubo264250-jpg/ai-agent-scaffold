@@ -7,6 +7,7 @@ import com.liubo.domain.agent.model.valobj.AiAgentRegisterVO;
 import com.liubo.domain.agent.service.armory.AbstractArmorySupport;
 import com.liubo.domain.agent.service.armory.factory.DefaultArmoryFactory;
 import com.liubo.domain.agent.service.armory.matter.mcp.client.factory.DefaultMcpClientFactory;
+import com.liubo.domain.agent.service.armory.matter.skills.impl.DefaultToolSkillsCreateService;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.ai.openai.OpenAiChatModel;
@@ -32,6 +33,9 @@ public class ChatModelNode extends AbstractArmorySupport {
     @Resource
     private DefaultMcpClientFactory defaultMcpClientFactory;
 
+    @Resource
+    private DefaultToolSkillsCreateService defaultToolSkillsCreateService;
+
     @Override
     protected AiAgentRegisterVO doApply(ArmoryCommandEntity requestParameter, DefaultArmoryFactory.DynamicContext dynamicContext) throws Exception {
         log.info("execute ChatModelNode");
@@ -41,20 +45,32 @@ public class ChatModelNode extends AbstractArmorySupport {
                 .openAiApi(openAiApi)
                 .defaultOptions(OpenAiChatOptions.builder()
                         .model(chatModelConfig.getModel())
-                        .toolCallbacks(buildToolCallBacks(chatModelConfig.getToolMcpList()))
+                        .toolCallbacks(buildToolCallBacks(chatModelConfig.getToolMcpList(), chatModelConfig.getToolSkillsList()))
                         .build())
                 .build();
         dynamicContext.setChatModel(chatModel);
         return router(requestParameter, dynamicContext);
     }
 
-    private List<ToolCallback> buildToolCallBacks(List<AiAgentConfigTableVO.Module.ChatModel.ToolMcp> toolMcpList) {
-        return Optional.ofNullable(toolMcpList)
+    private List<ToolCallback> buildToolCallBacks(List<AiAgentConfigTableVO.Module.ChatModel.ToolMcp> toolMcpList,
+                                                  List<AiAgentConfigTableVO.Module.ChatModel.ToolSkills> toolSkillsList) {
+        // mcp
+        List<ToolCallback> toolCallbackList = Optional.ofNullable(toolMcpList)
                 .orElse(Collections.emptyList())
                 .stream()
                 .filter(Objects::nonNull)
                 .flatMap(toolMcp -> defaultMcpClientFactory.buildToolCallback(toolMcp).stream())
                 .collect(Collectors.toList());
+
+        // skills
+        toolCallbackList.addAll(Optional.ofNullable(toolSkillsList)
+                .orElse(Collections.emptyList())
+                .stream()
+                .filter(Objects::nonNull)
+                .flatMap(toolSkills -> defaultToolSkillsCreateService.buildToolCallback(toolSkills).stream())
+                .toList());
+        toolCallbackList = toolCallbackList.stream().filter(Objects::nonNull).collect(Collectors.toList());
+        return toolCallbackList;
     }
 
     @Override

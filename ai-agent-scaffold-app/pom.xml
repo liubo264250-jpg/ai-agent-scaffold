@@ -130,7 +130,11 @@
         </dependency>
         <dependency>
             <groupId>com.liubo</groupId>
-            <artifactId>ai-agent-scaffold-types</artifactId>
+            <artifactId>ai-agent-scaffold-trigger</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
         </dependency>
     </dependencies>
 
